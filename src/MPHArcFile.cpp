@@ -6,6 +6,7 @@
 //=====================================================================//
 
 #include "MPHArcFile.h"
+
 #include <fstream>
 #include <iostream>
 #include <direct.h>
@@ -109,9 +110,9 @@ bool MPHArcFile::load(std::string filename)
 	}
 
 	// load all sub file headers
-	for (int i = 0; i<m_header->numfiles; i++)
+	for (int i=0; i<m_header->numfiles; i++)
 	{
-		MPHArcSubFileHeader *subFileHeader = (MPHArcSubFileHeader*)(m_fileBuffer + sizeof(MPHArcHeader)+i*sizeof(MPHArcSubFileHeader));
+		MPHArcSubFileHeader *subFileHeader = (MPHArcSubFileHeader*)(m_fileBuffer + sizeof(MPHArcHeader) + i*sizeof(MPHArcSubFileHeader));
 
 		// fix endianness
 		subFileHeader->offset = endianSwapU32(subFileHeader->offset);
@@ -146,7 +147,7 @@ bool MPHArcFile::extract(std::string folderToExtractTo)
 	// create folder if it doesn't exist already
 	_mkdir_tree(folderToExtractTo.c_str());
 
-	for (int i = 0; i<m_subFileHeaders.size(); i++)
+	for (int i=0; i<m_subFileHeaders.size(); i++)
 	{
 		std::string outputFileName = folderToExtractTo;
 		outputFileName.append((char*)m_subFileHeaders[i]->filename);

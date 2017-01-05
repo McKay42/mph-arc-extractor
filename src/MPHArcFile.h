@@ -25,9 +25,9 @@ typedef unsigned int	u32;
 //   Helper functions  //
 //*********************//
 
-inline int endianSwapU32(int x)
+inline u32 endianSwapU32(u32 x)
 {
-	return (x >> 24) | ((x << 8) & 0x00FF0000) | ((x >> 8) & 0x0000FF00) | (x << 24);
+	return ((x >> 24) & 0xff) | ((x << 8) & 0xff0000) | ((x >> 8) & 0xff00) | ((x << 24) & 0xff000000);
 }
 
 
